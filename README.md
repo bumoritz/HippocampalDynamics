@@ -1,6 +1,6 @@
 # HippocampalDynamics
 
-This repository contains analysis code for my ongoing project about hippocampal dynamics for associating events across time. It's pretty much work-in-progress. A streamlined and annotated version of the code as well as the data will be made available upon publication of the paper.
+This repository contains analysis code for my main PhD project, which is about hippocampal dynamics for associating events across time. It's pretty much work-in-progress. A streamlined and annotated version of the code as well as the data will be made available upon publication of the paper.
 
 
 # Project overview
