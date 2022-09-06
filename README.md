@@ -48,13 +48,20 @@ For each master script, specify which modules to run in the `ops` structure and 
 
 `/analyses/decodingAnalysis/decodingAnalysis.m`
 
+<p align="center">
+  <img src="/Img/ExampleGLM.png" width="1400">
+</p>
+
+This figure summarises the model setup for a GLM fitting task events and behavioural predictors to the neural activity traces of each individual neuron. The depicted predictor image is an excerpt (6 trials) from the design matrix, containing discrete and differently delayed perdictors (odours A, X, B, Y; reward; lick) and continuous behavioural predictors (sniffing, pupil, velocity, acceleration, video motion energy). The model is fit on 80% of the data with 5-fold cross-validation using elastic net regularisation and tested on the 20% of hold-out trials.
 
 
 ### Do the neurons targeted for photostimulation indeed become activated? -> Response analysis
 
 `/analyses/responseAnalysis/responseAnalysis.m`
 
-
+<p align="center">
+  <img src="/Img/ExampleResponseAnalysis.png" width="1400">
+</p>
 
 
 
