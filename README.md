@@ -30,7 +30,7 @@ For each master script, specify which modules to run in the `ops` structure and 
 
 * `Data2repo_Master.m`: This master script controls the pre-processing of data from an individual experimental session (e.g. suite2p output, synchronisation data, behaviour data, camera data) and saves the relevant information to a repository.
 * `Repo2repo_Master.m`: This master script controls further pre-processing of the data in the repository (e.g. tracking the same neurons across days, re-identifying photostimulation targets).
-* `Analyses_Master.m`: This master script controls all analyses for individual experimental sessions (e.g. GLM, Bayesian decoder, SVM, population vector analysis, low-dimensional analysis, sequence analysis, inhibition analysis, response analysis, behavioural analysis, learning analysis)
+* `Analyses_Master.m`: This master script controls all analyses for individual experimental sessions (e.g. neuronal encoding analysis, decoding analysis, population vector analysis, low-dimensional analysis, sequence analysis, inhibition analysis, response analysis, behavioural analysis, learning analysis)
 * `Summary_Master.m`: This master script loads in the analysis outputs from all experimental sessions and controls dataset-wide analyses. 
 
 
