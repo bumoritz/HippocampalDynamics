@@ -24,16 +24,35 @@ An emerging view is that binding event representations onto hippocampal sequence
 </p>
 
 
+# Code structure
+
+For each master script, specify which modules to run in the `ops` structure and set parameters in the `/utils/defaults/get_p.m` file.
+
+* `Data2repo_Master.m`: This master script controls the pre-processing of data from an individual experimental session (e.g. suite2p output, synchronisation data, behaviour data, camera data) and saves the relevant information to a repository.
+* `Repo2repo_Master.m`: This master script controls further pre-processing of the data in the repository (e.g. tracking the same neurons across days, re-identifying photostimulation targets).
+* `Analyses_Master.m`: This master script controls all analyses for individual experimental sessions (e.g. GLM, Bayesian decoder, SVM, population vector analysis, low-dimensional analysis, sequence analysis, inhibition analysis, response analysis, behavioural analysis, learning analysis)
+* `Summary_Master.m`: This master script loads in the analysis outputs from all experimental sessions and controls dataset-wide analyses. 
+
+
 # Example analyses
 
-### -> GLM
+
+### Which behavioural features does each individual neuron encode? -> GLM
+
+`/analyses/nemAnalysis/nemAnalysis.m`
 
 
 
-### -> Bayesian decoder
+
+### What is the neural population as a whole encoding? -> Bayesian decoder
+
+`/analyses/decodingAnalysis/decodingAnalysis.m`
 
 
-### Photostimulation response analysis
+
+### Do the neurons targeted for photostimulation indeed become activated? -> Response analysis
+
+`/analyses/responseAnalysis/responseAnalysis.m`
 
 
 
