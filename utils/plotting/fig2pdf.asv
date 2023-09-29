@@ -1,0 +1,16 @@
+%% Select data
+
+folder =  'C:\Users\Moritz\Documents\Illustrator\SfN2022\Material\Warping\Switch Stimulation';
+
+
+%%
+
+folder_content = dir([folder,'\*.fig']);
+for i=1:length(folder_content)
+    temp = [folder,'\',folder_content(i).name];
+    F = open(temp);
+    set(F,{'DefaultAxesXColor','DefaultAxesYColor','DefaultAxesZColor'},{'k','k','k'});
+    temp2 = [temp(1:end-4),'.pdf'];
+    exportgraphics(F,temp2,'BackgroundColor','none','ContentType','vector');
+end
+close all;
