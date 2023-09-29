@@ -162,9 +162,16 @@ for m=1:length(passed_cleaned_fields)
 end
 
 
+
+
+
+
+
+
+
 %% Animal-wise pie charts: Participation of cells in sequences - sorted by running speed
 
-refdata = fractionOfCells.A_nnegA;
+refdata = fractionOfCells.A;
 ncols = 8;
 nrows = ceil(length(rmmissing(refdata))/ncols);
 
@@ -178,8 +185,8 @@ for i=1:length(this_order)
     if ~isnan(refdata(this_idx))
         n=n+1;
         subplot(nrows,ncols,n)
-        this_data = [fractionOfCells.Aonly_nnegfirst(this_idx),fractionOfCells.Xonly_nnegfirst(this_idx),fractionOfCells.AandX_nnegfirst(this_idx),...
-            1-sum([fractionOfCells.Aonly_nnegfirst(this_idx),fractionOfCells.Xonly_nnegfirst(this_idx),fractionOfCells.AandX_nnegfirst(this_idx)])];
+        this_data = [fractionOfCells.Aonly(this_idx),fractionOfCells.Xonly(this_idx),fractionOfCells.AandX(this_idx),...
+            1-sum([fractionOfCells.Aonly(this_idx),fractionOfCells.Xonly(this_idx),fractionOfCells.AandX(this_idx)])];
         if nansum(this_data)<0.99 || nansum(this_data)>1.01
             warning('Fractions of cells dont add up to 1.')
         end
@@ -192,13 +199,9 @@ end
 suptitle('Participation of cells in sequences - nnegfirst')
 
 
-
-
-
-
 %% Animal-wise pie charts: Participation of cells in sequences - sorted by running speed
 
-refdata = fractionOfCells.A_nnegA;
+refdata = fractionOfCells.A;
 ncols = 8;
 nrows = ceil(length(rmmissing(refdata))/ncols);
 
@@ -212,8 +215,8 @@ for i=1:length(this_order)
     if ~isnan(refdata(this_idx))
         n=n+1;
         subplot(nrows,ncols,n)
-        this_data = [fractionOfCells.Aonly_nnegAsens(this_idx),fractionOfCells.Xonly_nnegXsens(this_idx),fractionOfCells.AandX_nnegAXsens(this_idx),...
-            1-sum([fractionOfCells.Aonly_nnegAsens(this_idx),fractionOfCells.Xonly_nnegXsens(this_idx),fractionOfCells.AandX_nnegAXsens(this_idx)])];
+        this_data = [fractionOfCells.Aonly(this_idx),fractionOfCells.Xonly(this_idx),fractionOfCells.AandX(this_idx),...
+            1-sum([fractionOfCells.Aonly(this_idx),fractionOfCells.Xonly(this_idx),fractionOfCells.AandX(this_idx)])];
         if nansum(this_data)<0.99 || nansum(this_data)>1.01
             warning('Fractions of cells dont add up to 1.')
         end
@@ -231,8 +234,8 @@ suptitle('Participation of cells in sequences - nneg ipsi sens')
 
 F = default_figure([20,0.5,20,9.9]);
 
-these_data = [fractionOfCells.Aonly_nnegAsens,fractionOfCells.Xonly_nnegXsens,fractionOfCells.AandX_nnegAXsens,...
-            1-nansum([fractionOfCells.Aonly_nnegAsens,fractionOfCells.Xonly_nnegXsens,fractionOfCells.AandX_nnegAXsens],2)]*100;
+these_data = [fractionOfCells.Aonly,fractionOfCells.Xonly,fractionOfCells.AandX,...
+            1-nansum([fractionOfCells.Aonly,fractionOfCells.Xonly,fractionOfCells.AandX],2)]*100;
 
 hold on
 h=bar(1:4,diag(nanmean(these_data,1)),'stacked');

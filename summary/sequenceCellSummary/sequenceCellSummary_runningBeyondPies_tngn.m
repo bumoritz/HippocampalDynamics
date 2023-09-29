@@ -22,7 +22,7 @@ end
 %% Extract idcs
 
 % idcs.iscells
-temp = extractVariable(d,'tng_all.prop.iscell','cell','all');
+temp = extractVariable(d,'tngn_all.prop.iscell','cell','all');
 idcs.iscells = cell(d_info.numAnimals,1);
 for i=1:d_info.numAnimals
     try
@@ -34,7 +34,7 @@ end
 % idcs.passed
 these_conditions = {'A','X','Aonly','Xonly','AandX','AorX'};
 for k=1:length(these_conditions)
-    temp = extractVariable(d,['tng_all.passed.AW.',these_conditions{k}],'cell','all');
+    temp = extractVariable(d,['tngn_all.passed.AW.',these_conditions{k}],'cell','all');
     idcs.passed.(these_conditions{k}) = cell(d_info.numAnimals,1);
     for i=1:d_info.numAnimals
         try
@@ -52,13 +52,13 @@ end
 idcs.passed = extractDay1(idcs.passed);
 
 % idcs.negthreshold
-% idcs.negthreshold.A = extractVariable(d,'tng_all.firingField.A_odour1.meanActivityInWindow_blSub','cell','all');
+% idcs.negthreshold.A = extractVariable(d,'tngn_all.firingField.A_odour1.meanActivityInWindow_blSub','cell','all');
 % for i=1:d_info.numAnimals
 %     if ~isempty(idcs.negthreshold.A{i})
 %         idcs.negthreshold.A{i} = find((idcs.negthreshold.A{i}<0)==1);
 %     end
 % end
-% idcs.negthreshold.X = extractVariable(d,'tng_all.firingField.X_odour1.meanActivityInWindow_blSub','cell','all');
+% idcs.negthreshold.X = extractVariable(d,'tngn_all.firingField.X_odour1.meanActivityInWindow_blSub','cell','all');
 % for i=1:d_info.numAnimals
 %     if ~isempty(idcs.negthreshold.X{i})
 %         idcs.negthreshold.X{i} = find((idcs.negthreshold.X{i}<0)==1);
@@ -91,8 +91,8 @@ idcs.passed_cleaned = idcs.passed;
 
 %% Extract and bin peak time
 
-temp_A = extractVariable(d,'tng_all.firingField.A_AW.peakLocation_s','cell','all');
-temp_X = extractVariable(d,'tng_all.firingField.X_AW.peakLocation_s','cell','all');
+temp_A = extractVariable(d,'tngn_all.firingField.A_AW.peakLocation_s','cell','all');
+temp_X = extractVariable(d,'tngn_all.firingField.X_AW.peakLocation_s','cell','all');
 these_conditions_cells = {'A','X','Aonly','Xonly','AandX','AorX'};
 these_conditions_neg = {'A','X','AX'};
 for m=1:length(these_conditions_cells)
@@ -110,7 +110,7 @@ for m=1:length(these_conditions_cells)
     end
 end
 
-binEdges = [0:0.5:5.5];
+binEdges = [0:0.1:5]; %[0:4,5.5]%[0:0.5:5.5];
 these_fields = fields(peakTime);
 for k=1:length(these_fields)
     binnedPeakTime.(these_fields{k}) = nan(d_info.numAnimals,length(binEdges)-1);
@@ -128,7 +128,7 @@ end
 %% Figure
 
 nrows = 2; ncols = 3;
-F = default_figure([20,0.5,20,9.9]);
+F = default_figure();
 
 % Atrials_A
 this_data_runners = binnedPeakTime.Atrials_A(find(running==1),:)*100;
@@ -231,7 +231,7 @@ title('AandX sequence cells (w/o -) in X trials')
 
 F = default_figure();
 
-this_data_runners = nanmean(cat(3,binnedPeakTime.Atrials_Aonly(find(running==1),:)*100,binnedPeakTime.Xtrials_Xonly(find(running==1),:)*100),3);
+this_data_runners = nanmean(cat(3,binnedPeakTime.Atrials_Aonly(running==1,:)*100,binnedPeakTime.Xtrials_Xonly(find(running==1),:)*100),3);
 this_data_nonrunners = nanmean(cat(3,binnedPeakTime.Atrials_Aonly(find(running==0),:)*100,binnedPeakTime.Xtrials_Xonly(find(running==0),:)*100),3);
 
 hold on
@@ -251,7 +251,7 @@ title('Sequence cells')
 %% Figure - individual traces
 
 nrows = 2; ncols = 3;
-F = default_figure([20,0.5,20,9.9]);
+F = default_figure();
 
 % Atrials_A
 this_data_runners = binnedPeakTime.Atrials_A(find(running==1),:)*100;

@@ -2,29 +2,29 @@
 
 %% Extract data
 
-fractionOfCells.A       = extractVariable(d,'tng_all.passed_stats.AW.A_fractionOfCells','array','single');
-fractionOfCells.X       = extractVariable(d,'tng_all.passed_stats.AW.X_fractionOfCells','array','single');
-fractionOfCells.Aonly   = extractVariable(d,'tng_all.passed_stats.AW.Aonly_fractionOfCells','array','single');
-fractionOfCells.Xonly   = extractVariable(d,'tng_all.passed_stats.AW.Xonly_fractionOfCells','array','single');
-fractionOfCells.AandX   = extractVariable(d,'tng_all.passed_stats.AW.AandX_fractionOfCells','array','single');
-fractionOfCells.AorX    = extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
-fractionOfCells.notAorX = 1-extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
-fractionOfCells = extractDay1(fractionOfCells);
-
-% amplitude.A       = extractVariable(d,'tng_all.firingField.A_AW.meanAmplitude_blSub_ipsi','array','mean');
-% amplitude.X       = extractVariable(d,'tng_all.firingField.X_AW.meanAmplitude_blSub_ipsi','array','single');
-% amplitude = extractDay1(amplitude);
-
-% running
-running = nan(d_info.numAnimals,1);
-for i=1:d_info.numAnimals
-    if isfield(d{i,1},'paq_beh') && (~isnan(nanmean(d{i,1}.paq_beh.speed)))
-        running(i) = nanmean(d{i,1}.paq_beh.speed) >= 10;
-    end
-end
-running(16) = true; % Arwen
-running(27) = false; % Stanage
-running(36:42) = 0 % Python, correct after data is imported
+% % % fractionOfCells.A       = extractVariable(d,'tng_all.passed_stats.AW.A_fractionOfCells','array','single');
+% % % fractionOfCells.X       = extractVariable(d,'tng_all.passed_stats.AW.X_fractionOfCells','array','single');
+% % % fractionOfCells.Aonly   = extractVariable(d,'tng_all.passed_stats.AW.Aonly_fractionOfCells','array','single');
+% % % fractionOfCells.Xonly   = extractVariable(d,'tng_all.passed_stats.AW.Xonly_fractionOfCells','array','single');
+% % % fractionOfCells.AandX   = extractVariable(d,'tng_all.passed_stats.AW.AandX_fractionOfCells','array','single');
+% % % fractionOfCells.AorX    = extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
+% % % fractionOfCells.notAorX = 1-extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
+% % % fractionOfCells = extractDay1(fractionOfCells);
+% % % 
+% % % % amplitude.A       = extractVariable(d,'tng_all.firingField.A_AW.meanAmplitude_blSub_ipsi','array','mean');
+% % % % amplitude.X       = extractVariable(d,'tng_all.firingField.X_AW.meanAmplitude_blSub_ipsi','array','single');
+% % % % amplitude = extractDay1(amplitude);
+% % % 
+% % % % running
+% % % running = nan(d_info.numAnimals,1);
+% % % for i=1:d_info.numAnimals
+% % %     if isfield(d{i,1},'paq_beh') && (~isnan(nanmean(d{i,1}.paq_beh.speed)))
+% % %         running(i) = nanmean(d{i,1}.paq_beh.speed) >= 10;
+% % %     end
+% % % end
+% % % running(16) = true; % Arwen
+% % % running(27) = false; % Stanage
+% % % running(36:42) = 0 % Python, correct after data is imported
 
 % speed
 speed = nan(d_info.numAnimals,1);

@@ -7,31 +7,31 @@ end
 
 %% Extract data
 
-% fractionOfCells.A       = extractVariable(d,'tng_all.passed_stats.AW.A_fractionOfCells','array','single');
-% fractionOfCells.X       = extractVariable(d,'tng_all.passed_stats.AW.X_fractionOfCells','array','single');
-% fractionOfCells.Aonly   = extractVariable(d,'tng_all.passed_stats.AW.Aonly_fractionOfCells','array','single');
-% fractionOfCells.Xonly   = extractVariable(d,'tng_all.passed_stats.AW.Xonly_fractionOfCells','array','single');
-% fractionOfCells.AandX   = extractVariable(d,'tng_all.passed_stats.AW.AandX_fractionOfCells','array','single');
-% fractionOfCells.AorX    = extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
-% fractionOfCells.notAorX = 1-extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
-% fractionOfCells = extractDay1(fractionOfCells);
-
-fractionOfCells.A       = extractVariable(d,'tng_all_cmpr.passed_stats.A_fractionOfCells','array','single');
-fractionOfCells.X       = extractVariable(d,'tng_all_cmpr.passed_stats.X_fractionOfCells','array','single');
-fractionOfCells.Aonly   = extractVariable(d,'tng_all_cmpr.passed_stats.Aonly_fractionOfCells','array','single');
-fractionOfCells.Xonly   = extractVariable(d,'tng_all_cmpr.passed_stats.Xonly_fractionOfCells','array','single');
-fractionOfCells.AandX   = extractVariable(d,'tng_all_cmpr.passed_stats.AandX_fractionOfCells','array','single');
-fractionOfCells.AorX    = extractVariable(d,'tng_all_cmpr.passed_stats.AorX_fractionOfCells','array','single');
-fractionOfCells.notAorX = 1-extractVariable(d,'tng_all_cmpr.passed_stats.AorX_fractionOfCells','array','single');
+fractionOfCells.A       = extractVariable(d,'tng_all.passed_stats.AW.A_fractionOfCells','array','single');
+fractionOfCells.X       = extractVariable(d,'tng_all.passed_stats.AW.X_fractionOfCells','array','single');
+fractionOfCells.Aonly   = extractVariable(d,'tng_all.passed_stats.AW.Aonly_fractionOfCells','array','single');
+fractionOfCells.Xonly   = extractVariable(d,'tng_all.passed_stats.AW.Xonly_fractionOfCells','array','single');
+fractionOfCells.AandX   = extractVariable(d,'tng_all.passed_stats.AW.AandX_fractionOfCells','array','single');
+fractionOfCells.AorX    = extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
+fractionOfCells.notAorX = 1-extractVariable(d,'tng_all.passed_stats.AW.AorX_fractionOfCells','array','single');
 fractionOfCells = extractDay1(fractionOfCells);
 
-% numberOfCells.A         = extractVariable(d,'tng_all.passed_stats.AW.A_num','array','single');
-% numberOfCells.X         = extractVariable(d,'tng_all.passed_stats.AW.X_num','array','single');
-% numberOfCells.Aonly     = extractVariable(d,'tng_all.passed_stats.AW.Aonly_num','array','single');
-% numberOfCells.Xonly     = extractVariable(d,'tng_all.passed_stats.AW.Xonly_num','array','single');
-% numberOfCells.AandX     = extractVariable(d,'tng_all.passed_stats.AW.AandX_num','array','single');
-% numberOfCells.notAorX   = 1-extractVariable(d,'tng_all.passed_stats.AW.AorX_num','array','single');
-% numberOfCells = extractDay1(numberOfCells);
+% fractionOfCells.A       = extractVariable(d,'tng_all_cmpr.passed_stats.A_fractionOfCells','array','single');
+% fractionOfCells.X       = extractVariable(d,'tng_all_cmpr.passed_stats.X_fractionOfCells','array','single');
+% fractionOfCells.Aonly   = extractVariable(d,'tng_all_cmpr.passed_stats.Aonly_fractionOfCells','array','single');
+% fractionOfCells.Xonly   = extractVariable(d,'tng_all_cmpr.passed_stats.Xonly_fractionOfCells','array','single');
+% fractionOfCells.AandX   = extractVariable(d,'tng_all_cmpr.passed_stats.AandX_fractionOfCells','array','single');
+% fractionOfCells.AorX    = extractVariable(d,'tng_all_cmpr.passed_stats.AorX_fractionOfCells','array','single');
+% fractionOfCells.notAorX = 1-extractVariable(d,'tng_all_cmpr.passed_stats.AorX_fractionOfCells','array','single');
+% fractionOfCells = extractDay1(fractionOfCells);
+
+numberOfCells.A         = extractVariable(d,'tng_all.passed_stats.AW.A_num','array','single');
+numberOfCells.X         = extractVariable(d,'tng_all.passed_stats.AW.X_num','array','single');
+numberOfCells.Aonly     = extractVariable(d,'tng_all.passed_stats.AW.Aonly_num','array','single');
+numberOfCells.Xonly     = extractVariable(d,'tng_all.passed_stats.AW.Xonly_num','array','single');
+numberOfCells.AandX     = extractVariable(d,'tng_all.passed_stats.AW.AandX_num','array','single');
+numberOfCells.notAorX   = 1-extractVariable(d,'tng_all.passed_stats.AW.AorX_num','array','single');
+numberOfCells = extractDay1(numberOfCells);
 
 
 %% Animal-wise pie charts: Participation of cells in sequences
@@ -73,6 +73,11 @@ suptitle('Participation of cells in sequences')
 
 %%
 
+splitter = d_info.running;
+col_split1 = p.col.runner;
+col_split2 = p.col.nonrunner;
+
+
 nrows = 2;
 ncols = 4;
 
@@ -90,10 +95,10 @@ for i=1:size(these_data,1)
     plot([1:4],these_data(i,:),'o-k')
 end
 for i=1:d_info.numAnimals
-    if running(i)==1
-        plot([1:4],these_data(i,:),'-','Color',p.col.runner);
-    elseif running(i)==0
-        plot([1:4],these_data(i,:),'-','Color',p.col.nonrunner);
+    if splitter(i)==1
+        plot([1:4],these_data(i,:),'-','Color',col_split1);
+    elseif splitter(i)==0
+        plot([1:4],these_data(i,:),'-','Color',col_split2);
     else
         plot([1:4],these_data(i,:),'k-');
     end
@@ -135,15 +140,16 @@ title('Participation in sequences')
 
 %% --- running correlation ---
 
-running = nan(d_info.numAnimals,1);
-for i=1:d_info.numAnimals
-    if isfield(d{i,1},'paq_beh') && (~isnan(nanmean(d{i,1}.paq_beh.speed)))
-        running(i) = nanmean(d{i,1}.paq_beh.speed) > 20;
-    end
-end
-running(16) = true; % Arwen
-running(27) = false; % Stanage
-running(36:42) = 0 % Python, correct after data is imported
+running = d_info.running(:,1);
+% running = nan(d_info.numAnimals,1);
+% for i=1:d_info.numAnimals
+%     if isfield(d{i,1},'paq_beh') && (~isnan(nanmean(d{i,1}.paq_beh.speed)))
+%         running(i) = nanmean(d{i,1}.paq_beh.speed) > 20;
+%     end
+% end
+% running(16) = true; % Arwen
+% running(27) = false; % Stanage
+% running(36:42) = 0 % Python, correct after data is imported
 
 speed = nan(d_info.numAnimals,1);
 for i=1:d_info.numAnimals
