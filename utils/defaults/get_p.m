@@ -11,9 +11,11 @@ p.paq.voltageThreshold              = 0.5; % [V], threshold for digitising
 
 p.cam.sniffing_bp                   = [2,12]; % [Hz] refs for 2-12: Uchida & Mainen, review by Grimaud and Murthy https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6139454/
 
-p.s2p_new.includeOnlyIscells        = false;
+p.s2p_new.zscoreBeforeSVD           = true;
+p.s2p_new.includeOnlyIscells        = true;
 p.s2p_new.holdOutStimData           = false;
 p.s2p_new.zcrdSigmaThreshold        = 3;
+p.s2p_new.fovCorrThreshold          = 5;
 p.s2p_new.smoothingSd_preBinning   	= 0; % in frames (not in bins)
 p.s2p_new.binSize                  	= 6; % number of frames per bin
 p.s2p_new.smoothingSd_postBinning  	= 0; % in bins (not in frames)
@@ -67,19 +69,37 @@ p.genPrep.zscore                        = true;
 
 % specific analyses - inherits
 p.tng = p.genPrep;
+p.pca = p.genPrep;
 p.inh = p.genPrep;
 p.ett = p.genPrep;
 p.iqa = p.genPrep;
 p.eca = p.genPrep;
 p.impr = p.genPrep;
 p.sqn = p.genPrep;
+p.warp = p.genPrep;
 p.dec = p.genPrep;
 p.nem = p.genPrep;
 p.osip = p.genPrep;
+p.bcon = p.genPrep;
+p.ppa = p.genPrep;
 
 % other
-p.resp.activityMeasure              = "dFFn_beh";
-p.resp.zscore                       = false;
+p.resp.activityMeasure                  = "dFFn_beh";
+p.resp.zscore                           = true;
+p.resp.previousClustersForExclusionZone = 12; %8;
+p.resp.excludeOutsideExclusionZone      = true;
+p.resp.exclusionRadius                  = 50; % in um
+p.resp.excludeInSelfCluster             = false;
+p.resp.minNumTrials                     = 0;
+p.resp.subtractBlockwiseTuning          = false;
+p.resp.subtractOverallTuning            = false;
+p.resp.ampBins_edges                    = [-5.5:1:15.5];
+p.resp.ampBins_x                        = [-5:1:15]';
+p.resp.ampBins_minNumDataPoints         = 20;
+p.impr.activityMeasure                  = "dFFn_beh";
+p.trns.activityMeasure                  = "dFFn_beh";
+p.ppa.activityMeasure_pre               = "spksn_pre";
+p.ppa.activityMeasure_post              = "spksn_post";
 
 % temp
 if false
@@ -111,8 +131,13 @@ p.general.bins_2nd2s                    = 42:51;
 p.general.bins_2nd3s                    = 42:56;
 p.general.binSize                       = 6; % number of frames per bin
 p.general.t_binned = ([1:p.general.numBins]-length(p.general.bins_pre)-1)*p.general.binSize/30.04; % info.scope.frameRate == 30.04
-p.general.smoothingSd_preBinning_velocity = 30; % in frames (not in bins)
-p.general.smoothingSd_preBinning_acceleration = 30; % in frames (not in bins)
+p.general.numFrames                     = p.general.numBins*p.general.binSize;
+p.general.frames_pre                      = 1:15*p.general.binSize;
+p.general.t_unbinned = ([1:p.general.numFrames]-length(p.general.frames_pre)-1)/30.04; % info.scope.frameRate == 30.04
+% p.general.smoothingSd_preBinning_velocity = 30; % in frames (not in bins)
+% p.general.smoothingSd_preBinning_acceleration = 30; % in frames (not in bins)
+p.general.smoothingSd_preBinning_velocity = 12;
+p.general.smoothingSd_preBinning_acceleration = 12;
 
 
 %% analyses - tng
@@ -121,12 +146,13 @@ p.general.smoothingSd_preBinning_acceleration = 30; % in frames (not in bins)
 p.tng.analysisBlockRestrictedNf     = true;
 p.tng.numShuffles                   = 1000;
 p.tng.shufflingThreshold            = 95;
+p.tng.pfdrCorrectionForShuffle      = false;
 
 % firing field properties
 p.tng.sdAboveBaselineType           = 'sd_of_trialwise_baseline'; % 'sd_of_entire_recording' or 'sd_of_trialwise_baseline'
 p.tng.activeInFiringFieldSd         = 1; % number of sd above baseline to be called active in firing field [default: 1] 3 getted rid von den prae Aktivitaeten
 p.tng.firingFieldBoundaries         = 0.5; % percent over baseline. 0.5 will lead to PF width being the FWHM
-p.tng.earlyVsLateThreshold          = 2; % s after first odour onset [default: 1]
+p.tng.earlyVsLateThreshold          = 1.3; % s after first odour onset [default: 1]
 p.tng.reliabilityThreshold          = 0.1; %0.2; % fraction of trials with activity in firing field [default: 0.2] 0.3 sieht besser aus, gerade bei activeInFiringFieldSd=3
 p.tng.selectivityThreshold          = 0;
 p.tng.qThreshold                    = 0.05;
@@ -136,8 +162,20 @@ p.tng.amplitudeThreshold            = 0.2;
 p.tng.criteria_shuffling            = true;
 p.tng.criteria_peakInWindow         = true;
 p.tng.criteria_aboveBaseline        = false;
-p.tng.criteria_reliability          = true;
+p.tng.criteria_reliability          = true; % true;
 p.tng.criteria_amplitude            = false;
+
+% tng dff
+p.tngn = p.tng;
+p.tngn.activityMeasure = "dFFn_beh";
+p.tngn.zscore = true;
+p.tngn.smoothingSd_preBinning = 9;
+
+% tng dff sig
+p.tngnn = p.tng;
+p.tngnn.activityMeasure = "dFFns_beh";
+p.tngnn.zscore = true;
+p.tngnn.smoothingSd_preBinning = 9;
 
 
 %% analyses - nem
@@ -180,13 +218,18 @@ p.resp.mainAmplitudeCritierion      = 0.5;
 p.resp.mainResponderCondition       = 'responders_0d5z_ext';
 
 p.sqn.shuffleOrderForSameBins       = true;
-p.dec.cvFold                        = 10;
+p.dec.cvFold                        = 5; %10;
+p.dec.trainOnCompleteSet            = true; % used to be: false;
 p.ett.cvFolds                       = 10;
 p.ett.numIncorrectTrialsAX          = 'same'; %'same','max'
 
+p.warp.histBins                     = [0:0.2:5.2];
 
 %% summary
 
+p.excl.engagement                   = 0.2; % fraction of trials with licks to be called engaged
+p.excl.running                      = 10.01; % [cm/s], min. avg. running speed to be called a runner
+p.excl.presponsive                  = 0.5; % min. responders_main.proportion_RespTargeted_AllTargeted
 p.lcs.smoothing_sd                  = 1;
 p.lick.smoothing_sd                 = 1;
 p.lick.crit_engagement              = 0.25;
@@ -215,23 +258,39 @@ p.col.seq_rainbow                   = [linspace(136,241,20);linspace(19,143,20);
 p.col.ctrl                          = [4,88,156]/255; % blue
 p.col.ctrl_rainbow                  = [linspace(4,133,20);linspace(88,209,20);linspace(156,245,20)]'/255; % blue (gradient to cyan)
 p.col.noStim                        = p.col.darkGray; % darkGray    %%%[28,95,43]/255; %green
+p.col.pos                           = [1,0.3,0.3];
+p.col.neg                           = [0.3,0.3,1];
+
+% % odours
+% p.col.A                             = [231,126,33]/255; % orange
+% p.col.AB                            = [231,126,33]/255; % orange
+% p.col.AB_rainbow                    = [linspace(231,147,20);linspace(126,82,20);linspace(33,23,20)]'/255; % orange (gradient to brown)
+% p.col.B                             = [147,82,23]/255; % brown
+% p.col.AY                            = [147,82,23]/255; % brown
+% p.col.X                             = [192,202,50]/255; % light green
+% p.col.XY                            = [192,202,50]/255; % light green
+% p.col.XY_rainbow                    = [linspace(192,130,20);linspace(202,120,20);linspace(50,29,20)]'/255; % light green (gradient to olive green)
+% p.col.XB                            = [130,120,29]/255; % olive green
+% p.col.Y                             = [130,120,29]/255; % olive green
 
 % odours
-p.col.A                             = [231,126,33]/255; % orange
-p.col.AB                            = [231,126,33]/255; % orange
-p.col.AB_rainbow                    = [linspace(231,147,20);linspace(126,82,20);linspace(33,23,20)]'/255; % orange (gradient to brown)
-p.col.B                             = [147,82,23]/255; % brown
-p.col.AY                            = [147,82,23]/255; % brown
-p.col.X                             = [192,202,50]/255; % light green
-p.col.XY                            = [192,202,50]/255; % light green
-p.col.XY_rainbow                    = [linspace(192,130,20);linspace(202,120,20);linspace(50,29,20)]'/255; % light green (gradient to olive green)
-p.col.XB                            = [130,120,29]/255; % olive green
-p.col.Y                             = [130,120,29]/255; % olive green
+p.col.AB                            = [194,79,30]/255; % ocre
+p.col.AY                            = [106,43,17]/255; % brown
+p.col.XY                            = [184,170,40]/255; % light green
+p.col.XB                            = [130,120,29]/255; % dark green
+p.col.A                             = p.col.AB;
+p.col.X                             = p.col.XY;
+p.col.B                             = p.col.AY;
+p.col.Y                             = p.col.XB;
 
-% running
-temp=copper;
-p.col.runner                        = temp((size(temp,1)-1)/3,:); % dark brown
-p.col.nonrunner                     = temp(2*(size(temp,1)-1)/3,:); % light brown
+% splits
+p.col.runner                        = [250,131,52]/255; % orange
+p.col.nonrunner                     = [28,95,43]/255; % green
+% temp=copper;
+% p.col.runner                        = temp((size(temp,1)-1)/3,:); % dark brown
+% p.col.nonrunner                     = temp(2*(size(temp,1)-1)/3,:); % light brown
+p.col.learning                      = 'g';
+p.col.nonlearning                   = 'r';
 
 % GLM
 p.col.lick                          = p.col.darkGray;
@@ -239,7 +298,7 @@ p.col.velocity                      = p.col.runner;
 p.col.acceleration                  = p.col.nonrunner;
 p.col.distance                      = p.col.black;
 p.col.duration                      = p.col.black;
-
+p.col.motion                        = p.col.darkGray;
 
 end
 
