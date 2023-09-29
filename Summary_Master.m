@@ -7,22 +7,36 @@ ops.do_learningCurveSummary         = false;
 ops.do_lickingSummary               = false;
 ops.do_respXperfSummary             = false;
 
-ops.do_sequenceCellSummary          = false;
+ops.do_sequenceCellSummary          = true;
+ops.do_sequenceDevelopmentSummary   = false;
+ops.do_sequenceDevelopmentStimSummary 	= false;
 ops.do_sqnXperfSummary              = false;
-ops.do_tngEncXPerfSummary           = false;
+ops.do_tngEncXperfSummary           = false;
 ops.do_ecaXperfSummary              = false;
 ops.do_nemSummary                   = false;
-ops.do_flexibleSummary              = true;
+ops.do_imprSummary                  = false;
+ops.do_flexibleSummary              = false;
+ops.do_responseSummary              = false;
+
+ops.loadDefault_sheet               = true;
+ops.excl.loadDefault_e              = true;
+ops.excl.updateDefault_e            = true;
+ops.excl.loadDefault_r              = true;
+ops.excl.updateDefault_r            = true;
+ops.excl.loadDefault_l              = true;
+ops.excl.updateDefault_l            = true;
+ops.excl.loadDefault_p              = true;
+ops.excl.updateDefault_p            = true;
+ops.excl.loadDefault_s              = true;
+ops.excl.updateDefault_s            = true;
 
 ops.skipIncompletelyProcessed       = true;
-
 ops.addBackInTroubleshooter         = false;
-ops.runOnSubsetOfSessions           = 1; % 0 for all sessions, 1 for the 11 expert imaging pilots
 
 ops.lcs.alternativeLickMetrics      = true; % delete
 ops.lcs.runningMetrics              = true; % re-organise
 
-ops.close_figures                   = false;
+ops.close_figures                   = true;
 
 if ispc
     path.root_repo                  = 'D:\SniffinHippo\Repo\';

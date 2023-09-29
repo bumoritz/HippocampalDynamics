@@ -1,13 +1,13 @@
 %% Select data
 clear; clc;
 
-animal = 'Carlo'; date = '20210313'; expDay = 1; stimSession = 0;
+animal = 'Guzman'; date = '20200805'; expDay = 1; stimSession = 0;
 
 
 %% Running options
 
 % core
-ops.do_taskData                     = false;
+ops.do_taskData                     = true;
 ops.do_thorData                     = false;
 ops.do_s2pData                      = false;
 ops.do_paqData                      = false;
@@ -17,11 +17,15 @@ ops.do_trgData                      = false;
 ops.do_s2pData_new                  = false;
 ops.do_spksnData                    = false;
 
+%abandoned
+ops.do_s2pData_newn                 = false;
+ops.do_spksnnData                   = false;
+
 % add-ons
 ops.do_cascData                     = false;
 ops.do_zcorrData                    = false;
 ops.do_haloData                     = false;
-ops.do_camData                      = true;
+ops.do_camData                      = false;
 
 ops.s2p.update_curation             = false;
 ops.s2p.update_meta                 = false; % keep at false!
@@ -43,11 +47,11 @@ ops.casc.do_50c                     = false;
 ops.casc.do_100g                    = false;
 ops.casc.do_100c                    = false;
 ops.casc.do_200g                    = false;
-ops.cam.do_mot                      = true;
-ops.cam.do_dlc                      = true;
+ops.cam.do_mot                      = false;
+ops.cam.do_dlc                      = false;
 
-path.root_data                      = 'E:\SniffinHippo\CamData\'; %  %'F:\Data\'; % 'Z:\WIBR_Hippos\SniffinHippo\Data\'
-path.root_repo                      = 'D:\SniffinHippo\Repo\'; % 'D:\temp\';
+path.root_data                      = 'Z:\WIBR_Hippos\SniffinHippo\Data\'; %  %'F:\Data\'; % 'E:\SniffinHippo\CamData\'
+path.root_repo                      = 'D:\SniffinHippo\RepoO\'; %'D:\SniffinHippo\Repo\'; % 'D:\temp\';
 path.root_repoX                     = 'E:\SniffinHippo\RepoX\'; % 'D:\temp\';
 
 
