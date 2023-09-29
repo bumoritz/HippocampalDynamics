@@ -2,7 +2,7 @@
 
 This repository contains analysis code for my main PhD project, which is about hippocampal dynamics for associating events across time. It's pretty much work-in-progress. A cleaned-up version of all analysis code will be made available upon publication of the paper.
 
-The olfactory behavioural setup was controlled using my custom-written software (https://github.com/bumoritz/SniffinHippo).
+The olfactory behavioural setup was controlled using my custom-written software SniffinHippo (https://github.com/bumoritz/SniffinHippo).
 
 
 # Project overview
